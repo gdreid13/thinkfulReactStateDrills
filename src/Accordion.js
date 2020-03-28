@@ -19,26 +19,31 @@ class Accordion extends React.Component {
     
     renderButtons() {
         return this.props.sections.map((sections, index) => (
-            <button key={index} onClick={() => this.handleButtonClick(index)}>
-                {sections.title}
-            </button>
+            <li key={index}>
+                <button key={index} onClick={() => this.handleButtonClick(index)}>
+                    {sections.title}
+                </button>
+                {this.renderContent(index)}
+            </li>
         ))
     }
 
-    renderContent() {
+    renderContent(index) {
         const currentAccord = this.props.sections[this.state.currentAccordIndex]
-        return (
-            <p className='content'>
-              {currentAccord.content}
-            </p>
-        )
+        if (index === this.state.currentAccordIndex) {
+            return (
+                <p className='content'>
+                {currentAccord.content}
+                </p>
+            )
+        }
     }
 
     render () {
         return (
             <div>
                 <ul>
-                    <li>{this.renderButtons()}{this.renderContent()}</li>
+                    {this.renderButtons()}
                 </ul>
             </div>
         )
